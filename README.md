@@ -39,10 +39,10 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
            
         4. Get the `COUNT` of how many orders were shipped by "Speedy Express" only.
     ```
-    SELECT COUNT(ord.ShipperID)
-    FROM Shippers AS ship 
-        JOIN Orders AS ord ON Ord.ShipperID = ship.ShipperID
-    WHERE ship.ShipperName = "Speedy Express";
+    SELECT COUNT(O.ShipperID) as Speedy_Count
+    FROM Orders AS O
+        JOIN Shippers AS S ON O.ShipperID = S.ShipperID
+    WHERE S.ShipperName = "Speedy Express";
    
     Output --> 54
     ```
