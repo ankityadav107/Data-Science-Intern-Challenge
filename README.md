@@ -26,18 +26,6 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
 
 1. How many orders were shipped by Speedy Express in total?
    
-    - Thought process:
-      
-        1. Need to find what table(s) have the shipper names listed. 
-           
-            - Found the shipper names and id numbers in the `Shippers` table.
-        2. Need to next find the table(s) where I would get all the orders that the shipper shipped.
-           
-            - Found that all orders and shipper ids are in the `Orders` table.
-          
-        3. Need to join the `Shippers` and `Orders` table together on the `ShipperID` column.
-           
-        4. Get the `COUNT` of how many orders were shipped by "Speedy Express" only.
     ```
     SELECT COUNT(O.ShipperID) as Speedy_Count
     FROM Orders AS O
@@ -48,20 +36,7 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
     ```
 
 2. What is the last name of the employee with the most orders?
-    - Thought process:
-      
-        1. Need to find the table(s) with employee last names.
-            - Found the `Employees` table has the `LastName` of the employees and their `EmpployeeID`.
-            
-        2. Need to find the table(s) with the employee ids, and the orders that employee processed.
-            - Found that the `Orders` table has the information that I need.
-          
-        3. Need to calculate the total orders for each employee id.
-           
-        4. Then need to sort those totals by value in descending order.
-           
-        5. Lastly,  show only the employee's last name that is at the top of the list.
-    
+   
     ```
      SELECT E.LastName,COUNT(E.EmployeeID) as Most_OrdersBy
      FROM Employees AS E
@@ -74,31 +49,9 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
     ```
 
 3. What product was ordered the most by customers in Germany?
-   
-    - Thought process:
-      
-        1. Find the table(s) where the customer's country is listed.
-           
-            - Found the country where the customer is in the `Customers` table. 
-            
-        2. Look at the `Products` table to see how I have to link it back to the `Customers` table, since it was the only one with the country where the customer resides.
-           
-            - There is a `ProductID` in the `Products` table that links to the `OrderDetails` table, which also has the `Quanitity` of the product ordered.
-              
-            - Then the `Orders` table is what links the `Customers` table to the `OrderDetails` table with `CustomerID` and `OrderID`.
-          
-        3. Going to need to do 3 inner joins in order to get all the information linked that I need.
-           
-        4. Have to have a conditional statement to only look at customers in Germany.
-           
-        5. Need to get a sum for each product id.
-           
-        6. Sort all the sums in descending order.
-           
-        7. Finally, return the first value in the product name column.
     
     ```
-    SELECT prod.ProductName
+    SELECT prod.ProductName,SUM(details.Quantity) as MostOrderedProduct
     FROM Products AS prod
         JOIN OrderDetails AS details ON details.ProductID = prod.ProductID
         JOIN Orders AS ord ON ord.OrderID = details.OrderID
