@@ -26,7 +26,7 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
 
 1. How many orders were shipped by Speedy Express in total?
    
-    - My thought process:
+    - Thought process:
       
         1. Need to find what table(s) have the shipper names listed. 
            
@@ -44,11 +44,11 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
         JOIN Orders AS ord ON Ord.ShipperID = ship.ShipperID
     WHERE ship.ShipperName = "Speedy Express";
    
-    Result --> 54
+    Output --> 54
     ```
 
 2. What is the last name of the employee with the most orders?
-    - My thought process:
+    - Thought process:
       
         1. Need to find the table(s) with employee last names.
             - Found the `Employees` table has the `LastName` of the employees and their `EmpployeeID`.
@@ -70,12 +70,12 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
     ORDER BY COUNT(emp.EmployeeID) DESC
     LIMIT 1;
     
-    Result --> Peacock
+    Output --> Peacock
     ```
 
 3. What product was ordered the most by customers in Germany?
    
-    - My thought process:
+    - Thought process:
       
         1. Find the table(s) where the customer's country is listed.
            
@@ -108,5 +108,5 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
     ORDER BY SUM(details.Quantity) DESC
     LIMIT 1;
    
-    Result --> Boston Crab Meat
+    Output --> Boston Crab Meat
     ```
