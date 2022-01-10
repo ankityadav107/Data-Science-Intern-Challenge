@@ -63,11 +63,11 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
         5. Lastly,  show only the employee's last name that is at the top of the list.
     
     ```
-     SELECT emp.LastName,COUNT(emp.EmployeeID) as Most_OrdersBy
-     FROM Employees AS emp
-          JOIN Orders AS ord ON ord.EmployeeID = emp.EmployeeID
-     GROUP BY emp.EmployeeID
-     ORDER BY COUNT(emp.EmployeeID) DESC
+     SELECT E.LastName,COUNT(E.EmployeeID) as Most_OrdersBy
+     FROM Employees AS E
+          JOIN Orders AS O ON O.EmployeeID = E.EmployeeID
+     GROUP BY E.EmployeeID
+     ORDER BY COUNT(E.EmployeeID) DESC
      LIMIT 1;
     
     Output --> Peacock
