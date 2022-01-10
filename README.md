@@ -21,32 +21,92 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
 
 
 
-### Question 2: For this question you’ll need to use SQL. Follow this link to access the data set required for the challenge. Please use queries to answer the following questions. Paste your queries along with your final numerical answers below.
 
-- How many orders were shipped by Speedy Express in total?
-  SELECT COUNT(ord.ShipperID)
-  FROM Shippers AS ship 
-  JOIN Orders AS ord ON Ord.ShipperID = ship.ShipperID
-  WHERE ship.ShipperName = "Speedy Express";
-  - 54
+**Question 2:** For this question you’ll need to use SQL. [Follow this link](https://www.w3schools.com/SQL/TRYSQL.ASP?FILENAME=TRYSQL_SELECT_ALL) to access the data set required for the challenge. Please use queries to answer the following questions. Paste your queries along with your final numerical answers below.
 
-- What is the last name of the employee with the most orders?
-  - SELECT TOP 1 Employees.LastName
-  FROM Orders
-  INNER JOIN Employees ON Orders.EmployeeID=Employees.EmployeeID
-  GROUP BY Employees.LastName
-  ORDER BY Count(Orders.OrderID) DESC;
-  - Peacock
+1. How many orders were shipped by Speedy Express in total?
+   
+    - My thought process:
+      
+        1. Need to find what table(s) have the shipper names listed. 
+           
+            - Found the shipper names and id numbers in the `Shippers` table.
+        2. Need to next find the table(s) where I would get all the orders that the shipper shipped.
+           
+            - Found that all orders and shipper ids are in the `Orders` table.
+          
+        3. Need to join the `Shippers` and `Orders` table together on the `ShipperID` column.
+           
+        4. Get the `COUNT` of how many orders were shipped by "Speedy Express" only.
+    ```
+    SELECT COUNT(ord.ShipperID)
+    FROM Shippers AS ship 
+        JOIN Orders AS ord ON Ord.ShipperID = ship.ShipperID
+    WHERE ship.ShipperName = "Speedy Express";
+   
+    Result --> 54
+    ```
 
-- What product was ordered the most by customers in Germany?
-  - I interpreted this question as “the product that has had the most orders placed in Germany”. 
-  - SELECT Products.ProductName
-  FROM Orders
-  INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
-  INNER JOIN OrderDetails ON Orders.OrderID = OrderDetails.OrderID
-  INNER JOIN Products ON OrderDetails.ProductID = Products.ProductID
-  WHERE Customers.Country = 'Germany'
-  GROUP BY Products.ProductName
-  ORDER BY COUNT(Products.ProductName) DESC
-  LIMIT 1;
-  - Gorgonzola Telino
+2. What is the last name of the employee with the most orders?
+    - My thought process:
+      
+        1. Need to find the table(s) with employee last names.
+            - Found the `Employees` table has the `LastName` of the employees and their `EmpployeeID`.
+            
+        2. Need to find the table(s) with the employee ids, and the orders that employee processed.
+            - Found that the `Orders` table has the information that I need.
+          
+        3. Need to calculate the total orders for each employee id.
+           
+        4. Then need to sort those totals by value in descending order.
+           
+        5. Lastly, I will show only the employee's last name that is at the top of the list.
+    
+    ```
+    SELECT emp.LastName
+    FROM Employees AS emp
+        JOIN Orders AS ord ON ord.EmployeeID = emp.EmployeeID
+    GROUP BY emp.EmployeeID
+    ORDER BY COUNT(emp.EmployeeID) DESC
+    LIMIT 1;
+    
+    Result --> Peacock
+    ```
+
+3. What product was ordered the most by customers in Germany?
+   
+    - My thought process:
+      
+        1. Find the table(s) where the customer's country is listed.
+           
+            - Found the country where the customer is in the `Customers` table. 
+            
+        2. Look at the `Products` table to see how I have to link it back to the `Customers` table, since it was the only one with the country where the customer resides.
+           
+            - There is a `ProductID` in the `Products` table that links to the `OrderDetails` table, which also has the `Quanitity` of the product ordered.
+              
+            - Then the `Orders` table is what links the `Customers` table to the `OrderDetails` table with `CustomerID` and `OrderID`.
+          
+        3. Going to need to do 3 inner joins in order to get all the information linked that I need.
+           
+        4. Have to have a conditional statement to only look at customers in Germany.
+           
+        5. Need to get a sum for each product id.
+           
+        6. Sort all the sums in descending order.
+           
+        7. Finally, return the first value in the product name column.
+    
+    ```
+    SELECT prod.ProductName
+    FROM Products AS prod
+        JOIN OrderDetails AS details ON details.ProductID = prod.ProductID
+        JOIN Orders AS ord ON ord.OrderID = details.OrderID
+        JOIN Customers AS cust ON cust.CustomerID = ord.CustomerID
+    WHERE cust.Country = "Germany"
+    GROUP BY prod.ProductName
+    ORDER BY SUM(details.Quantity) DESC
+    LIMIT 1;
+   
+    Result --> Boston Crab Meat
+    ```
