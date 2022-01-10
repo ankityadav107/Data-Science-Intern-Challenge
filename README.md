@@ -60,15 +60,15 @@ On Shopify, we have exactly 100 sneaker shops, and each of these shops sells onl
            
         4. Then need to sort those totals by value in descending order.
            
-        5. Lastly, I will show only the employee's last name that is at the top of the list.
+        5. Lastly,  show only the employee's last name that is at the top of the list.
     
     ```
-    SELECT emp.LastName
-    FROM Employees AS emp
-        JOIN Orders AS ord ON ord.EmployeeID = emp.EmployeeID
-    GROUP BY emp.EmployeeID
-    ORDER BY COUNT(emp.EmployeeID) DESC
-    LIMIT 1;
+     SELECT emp.LastName,COUNT(emp.EmployeeID) as Most_OrdersBy
+     FROM Employees AS emp
+          JOIN Orders AS ord ON ord.EmployeeID = emp.EmployeeID
+     GROUP BY emp.EmployeeID
+     ORDER BY COUNT(emp.EmployeeID) DESC
+     LIMIT 1;
     
     Output --> Peacock
     ```
