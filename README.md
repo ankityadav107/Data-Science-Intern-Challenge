@@ -22,8 +22,6 @@ Please complete the following questions, and provide your thought process/work. 
         - Without removing the outliers and just going based on the median calculations the value is --> **$284.00**
 
 
-
-
 **Question 2:** For this question you’ll need to use SQL. [Follow this link](https://www.w3schools.com/SQL/TRYSQL.ASP?FILENAME=TRYSQL_SELECT_ALL) to access the data set required for the challenge. Please use queries to answer the following questions. Paste your queries along with your final numerical answers below.
 
 1. How many orders were shipped by Speedy Express in total?
