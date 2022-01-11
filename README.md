@@ -1,23 +1,25 @@
-# Shopify2021DataScienceChallenge
-
-## Winter 2021 Data Science Intern Challenge 
+# Fall 2021 Data Science Intern Challenge 
 
 Please complete the following questions, and provide your thought process/work. You can attach your work in a text file, link, etc. on the application page. Please ensure answers are easily visible for reviewers!
 
 
-### Question 1: Given some sample data, write a program to answer the following: click here to access the required data set
-- Please see the code attached which includes visualizations and methods used to solve the problem!
+**Question 1:**  On Shopify, we have exactly 100 sneaker shops, and each of these shops sells only one model of shoe. We want to do some analysis of the average order value (AOV). When we look at orders data over a 30-day window, we naively calculate an AOV of $3145.13. Given that we know these shops are selling sneakers, a relatively affordable item, something seems wrong with our analysis.  
 
-On Shopify, we have exactly 100 sneaker shops, and each of these shops sells only one model of shoe. We want to do some analysis of the average order value (AOV). When we look at orders data over a 30 day window, we naively calculate an AOV of $3145.13. Given that we know these shops are selling sneakers, a relatively affordable item, something seems wrong with our analysis. 
+    - Think about what could be going wrong with our calculation. Think about a better way to evaluate this data.  
+      
+        - What went wrong here was that there were a lot of outliers (values that were not within the range of the majority of values). 
+          
+        - A better way to evaluate this data is to remove the outliers first before attempting to get the mean (average) value, since the outliers would rarely occur in other situations.
 
-- Think about what could be going wrong with our calculation. Think about a better way to evaluate this data. 
-  - When calculating the Average Order Value, an outlier of 704000 was also included in the calculation. This caused the AOV to be skewed much higher than it should be. We can see that this comes from one user making a very large purchase several times in March. A better way to evaluate this data would be to use a method that is more robust to outliers, such as the median of the dataset or the median of the Interquartile Range of the dataset (middle 50%). 
+    - What metric would you report for this dataset?
+      
+        - You can still get the mean for this dataset if you remove the outliers to get a more realistic average. However, if you did not want to remove any of the data from the dataset, you could also use median instead of mean, and it would be more accurate than the mean in this case.
 
-- What metric would you report for this dataset?
-  - I would use the median of the middle 50% of the dataset. This would allow me to take into consideration only the values that make up the middle 50% of the dataset (thereby dropping from consideration values that are very low or very high). 
-
-- What is its value?
-  - 276.5
+    - What is its value?
+      
+        - By removing the outliers and then calculating the mean, the average value of orders is --> **$230.46**
+          
+        - Without removing the outliers and just going based on the median calculations the value is --> **$284.00**
 
 
 
